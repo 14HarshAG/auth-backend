@@ -21,4 +21,8 @@ public String login(@RequestBody LoginRequest request) {
     System.out.println("🔥 LOGIN API HIT"); // ADD THIS
     return authService.login(request.getEmail(), request.getPassword());
 }
+@GetMapping("/")
+public String home() {
+    return "Backend is LIVE 🚀";
+}
 }
