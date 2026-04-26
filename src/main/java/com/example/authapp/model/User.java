@@ -1,7 +1,7 @@
 package com.example.authapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;

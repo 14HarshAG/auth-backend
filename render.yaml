@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: auth-backend
+    runtime: docker
+    plan: free
+    region: singapore
+    envVars:
+      - key: MONGODB_URI
+        sync: false # Set this in Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true # Render can generate a random secret
+      - key: PORT
+        value: 8080

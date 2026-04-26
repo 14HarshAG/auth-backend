@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Custom ###
+.env
+.env.local
+generate-token.js
+*.log
+.DS_Store
+

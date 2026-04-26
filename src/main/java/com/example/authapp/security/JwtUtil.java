@@ -10,10 +10,15 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // 🔥 Must be at least 32 chars
-    private final String SECRET = "mysecretkeymysecretkeymysecretkey12345";
+    @org.springframework.beans.factory.annotation.Value("${app.jwt.secret}")
+    private String secret;
 
-    private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
+    @org.springframework.beans.factory.annotation.Value("${app.jwt.expiration}")
+    private long expiration;
+
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     // ✅ Generate Token
     public String generateToken(String email, String role) {
@@ -22,8 +27,8 @@ public class JwtUtil {
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
-                .signWith(key, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -57,7 +62,7 @@ public class JwtUtil {
     // 🔒 Internal method
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
