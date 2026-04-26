@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AuthappApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthappApplication.class, args);
-	}
+    System.out.println("MONGO URI = " + System.getenv("MONGODB_URI"));
+    SpringApplication.run(AuthappApplication.class, args);
+}
 
 }
